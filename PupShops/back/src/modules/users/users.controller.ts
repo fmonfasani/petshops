@@ -1,64 +1,33 @@
 import {
-  Body,
   Controller,
-  Delete,
-  ForbiddenException,
-  HttpCode,
-  NotFoundException,
+  Get,
   Param,
-  ParseUUIDPipe,
   Put,
-  Query,
-  Req,
+  Body,
   UseGuards,
+  Delete,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '../auth/auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UpdateUserDto } from './dto/update-user.dto';
 
-@ApiTags('Users')
 @Controller('users')
+@UseGuards(JwtAuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-    @HttpCode(200)
-    @ApiBearerAuth()
-    @UseGuards(AuthGuard)
-    @Put(':id')
-    async updateUser(
-      @Param('id', ParseUUIDPipe) id: string,
-      @Body() user: UpdateUserDto,
-      @Req() req: any,
-    ) {
-      const currentUser = req.user;
-          
-      if (currentUser.id !== id) {
-        throw new ForbiddenException('No tienes permiso para modificar este perfil');
-      }
-    
-      const updatedUser = await this.usersService.updateUser(id, user);
-      if (!updatedUser) {
-        throw new NotFoundException('Usuario no encontrado');
-      }
-      return updatedUser;
-    }
+  @Get(':id')
+  getUser(@Param('id') id: string) {
+    return this.usersService.getUserById(id);
+  }
 
-    @HttpCode(200)
-    @ApiBearerAuth()
-    @UseGuards(AuthGuard)
-    @Delete(':id')
-    async deleteUser(@Param('id', ParseUUIDPipe) id: string, @Req() req: any)  {
-      const currentUser = req.user;
-    
-      if (currentUser.id !== id) {
-        throw new ForbiddenException('No tienes permiso para eliminar este perfil');
-      }
-      if(currentUser.isActive===false){
-        throw new ForbiddenException('Este usuario no se encuentra activo')
-      }
-      const result = await this.usersService.deleteUser(id);
-      
-      return { message: 'Usuario eliminado con éxito' };
-    }
+  @Put(':id')
+  updateUser(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.updateUser(id, updateUserDto);
+  }
+
+  @Delete(':id')
+  deleteUser(@Param('id') id: string) {
+    return this.usersService.deleteUser(id);
+  }
 }

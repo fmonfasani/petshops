@@ -81,9 +81,22 @@ export default function RegisterUser() {
     };
 
     try {
-      const isRegistered = await signUp(user);
-      if (isRegistered) {
-        console.log("Registro exitoso y usuario autenticado.");
+      // Lógica para enviar el registro al backend de NestJS
+      const response = await fetch(`${process.env.NESTJS_API_URL}/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      if (response.ok) {
+        const isRegistered = await response.json();
+        if (isRegistered) {
+          console.log(
+            "Usuario registrado exitosamente en el backend de NestJS."
+          );
+        }
       } else {
         setGeneralError(
           "Registro inválido. Por favor, revisa los datos ingresados."

@@ -15,20 +15,19 @@ import { CreateServiceDto } from './dto/create-service.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UpdateServicePriceDto } from './dto/update-price.dto';
 import { AuthGuard } from '../auth/auth.guard';
-import { RolesGuard } from '../auth/roles/roles.guard';
-import { Role } from '../auth/roles/roles.enum';
-import { Roles } from '../auth/roles/roles.decorator';
+import { RolesGuard } from '../roles/roles.guard';
+import { Role } from '../roles/roles.enum';
+import { Roles } from '../roles/roles.decorator';
 
 @ApiTags('Services')
 @ApiBearerAuth()
-
 @Controller('services')
 export class ServicesController {
   constructor(private readonly servicesService: ServicesService) {}
 
   @Post()
   @ApiBearerAuth()
-@UseGuards(AuthGuard,RolesGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.Admin)
   create(@Body() createServiceDto: CreateServiceDto) {
     return this.servicesService.create(createServiceDto);
@@ -38,27 +37,26 @@ export class ServicesController {
     return this.servicesService.addServicesSeeder();
   }
   @Get()
- 
   findAll() {
     return this.servicesService.findAll();
   }
 
   @Get(':id')
   @ApiBearerAuth()
-@UseGuards(AuthGuard,RolesGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   findOne(@Param('id') id: string) {
     return this.servicesService.findOne(id);
   }
   @Delete(':id')
   @ApiBearerAuth()
-@UseGuards(AuthGuard,RolesGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.Admin)
   remove(@Param('id') id: string) {
     return this.servicesService.remove(id);
   }
   @Patch(':id/restore')
   @ApiBearerAuth()
-@UseGuards(AuthGuard,RolesGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.Admin)
   restore(@Param('id') id: string) {
     return this.servicesService.restore(id);
@@ -66,7 +64,7 @@ export class ServicesController {
 
   @Patch(':id/price')
   @ApiBearerAuth()
-@UseGuards(AuthGuard,RolesGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.Admin)
   updatePrice(
     @Param('id') id: string,

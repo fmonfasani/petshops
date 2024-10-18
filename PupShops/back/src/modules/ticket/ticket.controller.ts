@@ -1,12 +1,26 @@
-import { Controller, Post, Body, Param, Put, Req, Get, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Param,
+  Put,
+  Req,
+  Get,
+  UseGuards,
+} from '@nestjs/common';
 import { TicketService } from './ticket.service';
 import { CreateTicketDto } from './dto/create-ticket.dto';
-import { RolesGuard } from '../auth/roles/roles.guard';
-import { Roles } from '../auth/roles/roles.decorator';
-import { Role } from '../auth/roles/roles.enum';
+import { RolesGuard } from '../roles/roles.guard';
+import { Roles } from '../roles/roles.decorator';
+import { Role } from '../roles/roles.enum';
 import { CreateTicketResponseDto } from './dto/ticket-response.dto';
-import { ApiBearerAuth, ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from '../auth/auth.guard';
+import {
+  ApiBearerAuth,
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+} from '@nestjs/swagger';
 
 @ApiTags('Tickets')
 @Controller('tickets')
@@ -15,21 +29,34 @@ export class TicketsController {
 
   @Post()
   @ApiBearerAuth()
-  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Crear un ticket' })
-  @ApiResponse({ status: 201, description: 'El ticket ha sido creado exitosamente.' })
-  async createTicket(@Body() createTicketDto: CreateTicketDto, @Req() req: any) {
+  @ApiResponse({
+    status: 201,
+    description: 'El ticket ha sido creado exitosamente.',
+  })
+  async createTicket(
+    @Body() createTicketDto: CreateTicketDto,
+    @Req() req: any,
+  ) {
     const userId = req.user.id;
     return this.ticketsService.createTicket(createTicketDto, userId);
   }
 
   @Post(':id/respond')
   @ApiBearerAuth()
-  @UseGuards(AuthGuard, RolesGuard)
+  @UseGuards(RolesGuard)
   @Roles(Role.Admin)
-  @ApiOperation({ summary: 'Responder a un ticket (solo para administradores)' })
-  @ApiResponse({ status: 200, description: 'Respuesta al ticket enviada exitosamente.' })
-  async respondToTicket(@Param('id') id: string, @Body() responseDto: CreateTicketResponseDto) {
+  @ApiOperation({
+    summary: 'Responder a un ticket (solo para administradores)',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Respuesta al ticket enviada exitosamente.',
+  })
+  async respondToTicket(
+    @Param('id') id: string,
+    @Body() responseDto: CreateTicketResponseDto,
+  ) {
     return this.ticketsService.respondToTicket(id, responseDto);
   }
 
@@ -47,7 +74,9 @@ export class TicketsController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.Admin)
-  @ApiOperation({ summary: 'Obtener todos los tickets (solo para administradores)' })
+  @ApiOperation({
+    summary: 'Obtener todos los tickets (solo para administradores)',
+  })
   @ApiResponse({ status: 200, description: 'Lista de tickets obtenida.' })
   async getAllTickets() {
     return this.ticketsService.getAllTickets();

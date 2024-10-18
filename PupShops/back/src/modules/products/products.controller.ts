@@ -14,8 +14,8 @@ import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Roles } from '../auth/roles/roles.decorator';
-import { Role } from '../auth/roles/roles.enum';
+import { Roles } from '../roles/roles.decorator';
+import { Role } from '../roles/roles.enum';
 
 @ApiTags('Products')
 @Controller('products')
@@ -67,7 +67,6 @@ export class ProductsController {
     return this.productsService.getProductsByChildCategory(categoryId);
   }
 
-  
   @Get('parent/:categoryId')
   getProductsByParentCategory(@Param('categoryId') categoryId: string) {
     return this.productsService.getProductsByParentCategory(categoryId);

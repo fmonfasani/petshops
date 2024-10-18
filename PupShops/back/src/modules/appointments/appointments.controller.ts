@@ -22,11 +22,11 @@ import {
   ApiBearerAuth,
 } from '@nestjs/swagger';
 import { AuthGuard } from '../auth/auth.guard';
-import { Roles } from '../auth/roles/roles.decorator';
-import { Role } from '../auth/roles/roles.enum';
-import { RolesGuard } from '../auth/roles/roles.guard';
+import { Roles } from '../roles/roles.decorator';
+import { Role } from '../roles/roles.enum';
+import { RolesGuard } from '../roles/roles.guard';
 
-@ApiTags('Appointments') 
+@ApiTags('Appointments')
 @Controller('appointments')
 @ApiBearerAuth()
 @UseGuards(AuthGuard)
@@ -34,8 +34,8 @@ export class AppointmentsController {
   constructor(private readonly appointmentsService: AppointmentsService) {}
 
   @Post()
-  @ApiOperation({ summary: 'Crear un nuevo turno para un servicio' }) 
-  @ApiBody({ type: CreateAppointmentDto }) 
+  @ApiOperation({ summary: 'Crear un nuevo turno para un servicio' })
+  @ApiBody({ type: CreateAppointmentDto })
   @ApiResponse({
     status: 201,
     description: 'Turno creado exitosamente.',
@@ -63,18 +63,18 @@ export class AppointmentsController {
     userId: string;
     userName: string;
   }> {
-    const user = req.user as User; 
+    const user = req.user as User;
     return this.appointmentsService.create(createAppointmentDto, user);
   }
 
   @Get()
-  @UseGuards(AuthGuard,RolesGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.Admin)
   @ApiOperation({ summary: 'Obtener todos los turnos' })
   @ApiResponse({
     status: 200,
     description: 'Lista de todos los turnos.',
-    type: [Appointment], 
+    type: [Appointment],
   })
   async findAll(): Promise<Appointment[]> {
     return this.appointmentsService.findAll();
@@ -142,7 +142,7 @@ export class AppointmentsController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Eliminar un turno (borrado lógico)' })
-  @ApiParam({ name: 'id', description: 'ID del turno a eliminar' }) 
+  @ApiParam({ name: 'id', description: 'ID del turno a eliminar' })
   @ApiResponse({
     status: 200,
     description: 'El turno ha sido eliminado exitosamente.',

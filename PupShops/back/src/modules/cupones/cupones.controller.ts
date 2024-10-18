@@ -1,11 +1,18 @@
 import { Controller, Post, Body, Get, Param, UseGuards } from '@nestjs/common';
 import { CuponService } from './cupones.service';
 import { CreateCouponDto } from './cupones.dto';
-import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiParam, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBody,
+  ApiParam,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { AuthGuard } from '../auth/auth.guard';
-import { RolesGuard } from '../auth/roles/roles.guard';
-import { Roles } from '../auth/roles/roles.decorator';
-import { Role } from '../auth/roles/roles.enum';
+import { RolesGuard } from '../roles/roles.guard';
+import { Roles } from '../roles/roles.decorator';
+import { Role } from '../roles/roles.enum';
 
 @ApiTags('Cupones')
 @Controller('cupones')
@@ -35,7 +42,11 @@ export class CuponController {
     @Body('orderValue') orderValue: number,
     @Body('userId') userId?: string,
   ) {
-    const discountValue = await this.cuponService.applyCoupon(code, orderValue, userId);
+    const discountValue = await this.cuponService.applyCoupon(
+      code,
+      orderValue,
+      userId,
+    );
     return {
       originalOrderValue: orderValue,
       discountValue,

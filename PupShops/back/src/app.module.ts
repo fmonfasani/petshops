@@ -12,7 +12,6 @@ import typeOrmConfig from './config/typeorm';
 import { ServicesModule } from './modules/service/services.module';
 import { AppointmentModule } from './modules/appointments/appointments.module';
 import { CategoriesModule } from './modules/categories/categories.module';
-import { WebhookModule } from './modules/webhook/webhook.module';
 import { PaymentsModule } from './modules/payments/payment.module';
 import { TicketsModule } from './modules/ticket/ticket.module';
 import { CuponModule } from './modules/cupones/cupones.module';
@@ -28,9 +27,7 @@ import { InitializationService } from './initialization.service';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => config.get('typeorm'),
     }),
-    InitializationService,
     PaymentsModule,
-    WebhookModule,
     AppointmentModule,
     CategoriesModule,
     ServicesModule,
@@ -49,6 +46,6 @@ import { InitializationService } from './initialization.service';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, InitializationService],
 })
 export class AppModule {}

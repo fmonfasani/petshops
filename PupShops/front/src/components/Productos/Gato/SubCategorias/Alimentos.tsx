@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 
 const ITEMS_PER_PAGE = 6;
 
-const AlimentosPerro: React.FC = () => {
+const AlimentosGatos: React.FC = () => {
   const router = useRouter();
   const { addToCart } = useContext(cartContext);
   const [currentPage, setCurrentPage] = useState(1);
@@ -284,4 +284,4 @@ const AlimentosPerro: React.FC = () => {
   );
 };
 
-export default AlimentosPerro;
+export default AlimentosGatos;
