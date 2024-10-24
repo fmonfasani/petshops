@@ -3,9 +3,8 @@ import React from "react";
 
 export default function Banner() {
   return (
-    <section className="relative bg-[url(https://images.pexels.com/photos/2607544/pexels-photo-2607544.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)] bg-cover bg-center bg-no-repeat">
+    <section className="relative bg-[url('/portada.png')] bg-cover bg-center bg-no-repeat">
       <div className="absolute inset-0 bg-pink-100/80 sm:bg-transparent sm:from-pink-100/95 sm:to-pink-100/25 sm:bg-gradient-to-r"></div>
-
       <div className="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8">
         <div className="max-w-xl text-center sm:text-left">
           <h1 className="text-3xl font-extrabold sm:text-5xl">
@@ -17,8 +16,8 @@ export default function Banner() {
 
           <p className="mt-4 max-w-lg text-xl text-gray-700">
             Discover a world of love, care, and joy for your furry friends. From
-            premium products to top-notch services, weve got everything your
-            pet needs!
+            premium products to top-notch services, weve got everything your pet
+            needs!
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4 text-center">

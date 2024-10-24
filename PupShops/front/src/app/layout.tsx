@@ -1,13 +1,12 @@
+"use client";
 
-import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Footer from "@/components/Footer/Footer";
-import { UserProvider as UserProviderContext } from "@/context/userContext";
-import NavbarContainer from "@/components/Navbar/NavbarContainer";
+import { SessionProvider } from "next-auth/react";
 import { CartProvider } from "@/context/cartContext";
-import { UserProvider } from "@auth0/nextjs-auth0/client";
-import Chatbot from "../components/ChatBot/chatbot"; 
+import NavbarContainer from "@/components/Navbar/NavbarContainer";
+import Chatbot from "../components/ChatBot/chatbot";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -20,10 +19,6 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export const metadata: Metadata = {
-  title: "Pups PetShop",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -34,16 +29,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <UserProvider>
-          <UserProviderContext>
-            <CartProvider>
-              <NavbarContainer />
-              {children}
-              <Footer />
-              <Chatbot />
-            </CartProvider>
-          </UserProviderContext>
-        </UserProvider>
+        <SessionProvider>
+          <CartProvider>
+            <NavbarContainer />
+            {children}
+            <Footer />
+            <Chatbot />
+          </CartProvider>
+        </SessionProvider>
       </body>
     </html>
   );

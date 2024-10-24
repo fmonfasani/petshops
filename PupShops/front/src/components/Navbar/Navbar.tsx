@@ -50,7 +50,7 @@ export default function Navbar() {
           onClick={() => router.push("/")}
           className="block text-teal-600 cursor-pointer"
         >
-          <div className="p-3">
+          <div className="p-0">
             <Image alt="logo" src={pups} width={100} height={100} />
           </div>
         </div>
@@ -141,7 +141,7 @@ export default function Navbar() {
                       handleProfileMenuClick("/userDashboard/login")
                     }
                   >
-                    Iniciar sesion
+                    Ingresar
                   </button>
                   <button
                     className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left"
