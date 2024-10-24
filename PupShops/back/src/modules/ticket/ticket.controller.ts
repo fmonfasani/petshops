@@ -26,7 +26,6 @@ import {
 @Controller('tickets')
 export class TicketsController {
   constructor(private readonly ticketsService: TicketService) {}
-
   @Post()
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Crear un ticket' })
