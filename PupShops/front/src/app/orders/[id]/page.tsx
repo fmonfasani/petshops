@@ -10,12 +10,12 @@ export default function OrderPage() {
   const router = useRouter();
 
   const [showNotification, setShowNotification] = useState(false);
-  const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationMessage, setNotificationMessage] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
-      setLoading(false); 
+      setLoading(false);
     }, 1000);
   }, []);
 
@@ -23,7 +23,9 @@ export default function OrderPage() {
     if (loading) return;
 
     if (!isLogged || !isAdmin) {
-      setNotificationMessage('Debes ser administrador para acceder a esta sección.');
+      setNotificationMessage(
+        "Debes ser administrador para acceder a esta sección.",
+      );
       setShowNotification(true);
       setTimeout(() => {
         setShowNotification(false);
@@ -41,8 +43,10 @@ export default function OrderPage() {
 
   return (
     <>
-      {isAdmin && <OrderDetails />} 
-      {showNotification && <NotificationRegister message={notificationMessage} />}
+      {isAdmin && <OrderDetails />}
+      {showNotification && (
+        <NotificationRegister message={notificationMessage} />
+      )}
     </>
   );
 }

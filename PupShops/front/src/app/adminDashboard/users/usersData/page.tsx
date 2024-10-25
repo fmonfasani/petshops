@@ -1,22 +1,22 @@
 "use client";
-import AdminUsersDataComponent from '@/components/AdminUsersData/AdminUsersDataComponent';
-import { NotificationRegister } from '@/components/Notifications/NotificationRegister';
-import { UserContext } from '@/context/userContext';
-import { useRouter } from 'next/navigation';
-import React, { useContext, useEffect, useState } from 'react';
+import AdminUsersDataComponent from "@/components/AdminUsersData/AdminUsersDataComponent";
+import { NotificationRegister } from "@/components/Notifications/NotificationRegister";
+import { UserContext } from "@/context/userContext";
+import { useRouter } from "next/navigation";
+import React, { useContext, useEffect, useState } from "react";
 
 export default function AdminUsersData() {
-  const { isAdmin } = useContext(UserContext); 
+  const { isAdmin } = useContext(UserContext);
   const router = useRouter();
 
   const [showNotification, setShowNotification] = useState(false);
-  const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationMessage, setNotificationMessage] = useState("");
   const [loading, setLoading] = useState(true);
 
   // Ruta privada
   useEffect(() => {
     if (!isAdmin) {
-      setNotificationMessage('Debes ser administrador para ver datos');
+      setNotificationMessage("Debes ser administrador para ver datos");
       setShowNotification(true);
       setLoading(false);
 
@@ -25,7 +25,7 @@ export default function AdminUsersData() {
         router.push("/home");
       }, 2000);
     } else {
-      setLoading(false); 
+      setLoading(false);
     }
   }, [isAdmin, router]);
 
@@ -42,7 +42,9 @@ export default function AdminUsersData() {
       {isAdmin ? (
         <AdminUsersDataComponent />
       ) : (
-        showNotification && <NotificationRegister message={notificationMessage} />
+        showNotification && (
+          <NotificationRegister message={notificationMessage} />
+        )
       )}
     </>
   );

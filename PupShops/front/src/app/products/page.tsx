@@ -38,7 +38,7 @@ export default function PageProducts() {
         </Link>
       </div>
       <div className="flex items-center justify-center">
-      <Image alt="logo" src={banner} width={1200} height={300} />
+        <Image alt="logo" src={banner} width={1200} height={300} />
       </div>
       <ProductsPage />
     </div>

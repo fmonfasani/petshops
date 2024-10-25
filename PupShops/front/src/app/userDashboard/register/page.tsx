@@ -1,24 +1,23 @@
-"use client"
-import React, { useContext, useEffect, useState } from 'react';
-import RegisterUser from '@/components/Forms/FormsUser/RegisterUser'
-import { UserContext } from '@/context/userContext';
-import { useRouter } from 'next/navigation';
-import { NotificationRegister } from '@/components/Notifications/NotificationRegister';
+"use client";
+import React, { useContext, useEffect, useState } from "react";
+import RegisterUser from "@/components/Forms/FormsUser/RegisterUser";
+import { UserContext } from "@/context/userContext";
+import { useRouter } from "next/navigation";
+import { NotificationRegister } from "@/components/Notifications/NotificationRegister";
 
 export default function RegisterPage() {
   const [token, setToken] = useState<string | null>(null);
   const { isLogged } = useContext(UserContext);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
   const [showNotification, setShowNotification] = useState(false);
-  const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationMessage, setNotificationMessage] = useState("");
   const router = useRouter();
 
   useEffect(() => {
     if (isLogged) {
       setNotificationMessage(`Debes cerrar sesión para registrar un usuario`);
       setShowNotification(true);
-      setLoading(false);  
-
+      setLoading(false);
 
       const notificationTimeout = setTimeout(() => {
         setShowNotification(false);
@@ -43,9 +42,11 @@ export default function RegisterPage() {
     return null;
   }
   return (
-      <div>
-      {!isLogged &&  <RegisterUser />} 
-      {showNotification && <NotificationRegister message={notificationMessage} />} 
+    <div>
+      {!isLogged && <RegisterUser />}
+      {showNotification && (
+        <NotificationRegister message={notificationMessage} />
+      )}
     </div>
-  )
+  );
 }

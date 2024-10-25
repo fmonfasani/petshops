@@ -53,7 +53,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   const addToCart = async (
     productId: number,
-    quantity: number = 1
+    quantity: number = 1,
   ): Promise<boolean> => {
     try {
       const existingProduct = cartItems.find((item) => item.id === productId);
@@ -63,7 +63,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         updatedCartItems = cartItems.map((item) =>
           item.id === productId
             ? { ...item, quantity: (existingProduct.quantity || 0) + quantity }
-            : item
+            : item,
         );
       } else {
         const productData = await fetchProductsById(productId);
@@ -114,7 +114,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       if (!response.ok) {
         const errorMessage = await response.text();
         throw new Error(
-          `Error en la compra: ${response.statusText} - ${errorMessage}`
+          `Error en la compra: ${response.statusText} - ${errorMessage}`,
         );
       }
 
@@ -137,7 +137,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const calculateTotal = () => {
     const sum = cartItems.reduce(
       (acc, item) => acc + (item.price * (item.quantity || 1) || 0),
-      0
+      0,
     );
 
     setOriginalTotal(sum);

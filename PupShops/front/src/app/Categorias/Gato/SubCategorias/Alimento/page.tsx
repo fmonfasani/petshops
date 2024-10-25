@@ -1,10 +1,9 @@
-import AlimentoGato from "../../../../../components/Productos/Gato/SubCategorias/Alimentos"
+import AlimentoGato from "../../../../../components/Productos/Gato/SubCategorias/Alimentos";
 
-
-export default function ComidaGato () {
-    return (
-        <div>
-            <AlimentoGato/>
-        </div>
-    )
+export default function ComidaGato() {
+  return (
+    <div>
+      <AlimentoGato />
+    </div>
+  );
 }

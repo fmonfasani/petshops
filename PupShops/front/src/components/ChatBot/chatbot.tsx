@@ -7,7 +7,7 @@ const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [userMessage, setUserMessage] = useState("");
   const [messages, setMessages] = useState<{ from: string; text: string }[]>(
-    []
+    [],
   );
   const [bounce, setBounce] = useState(false); // Estado para controlar el rebote
 

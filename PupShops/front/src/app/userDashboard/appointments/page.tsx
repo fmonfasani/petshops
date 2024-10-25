@@ -1,4 +1,3 @@
-
 import AppointmentHistory from "@/components/Appointments/AppointmentsHistoryComponent";
 import React from "react";
 

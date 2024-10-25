@@ -1,9 +1,9 @@
 "use client";
-import React, { useEffect, useState, useContext } from 'react';
-import { useParams, useRouter } from 'next/navigation'; 
-import { UserContext } from '@/context/userContext'; 
-import { NotificationRegister } from '../Notifications/NotificationRegister';
-import { NotificationError } from '../Notifications/NotificationError';
+import React, { useEffect, useState, useContext } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { UserContext } from "@/context/userContext";
+import { NotificationRegister } from "../Notifications/NotificationRegister";
+import { NotificationError } from "../Notifications/NotificationError";
 
 interface User {
   name: string;
@@ -27,7 +27,8 @@ interface Order {
 
 export default function OrderDetails() {
   const { token } = useContext(UserContext);
-  const { id } = useParams();
+  const params = useParams();
+  const id = params?.id as string | undefined; // Ajuste para manejar el tipo
   const router = useRouter();
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
@@ -37,20 +38,29 @@ export default function OrderDetails() {
   const [showErrorNotification, setShowErrorNotification] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  // URL base de la API desde las variables de entorno
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   // Fetch de la orden
   useEffect(() => {
+    if (!id) {
+      setError("ID de la orden no encontrado");
+      setLoading(false);
+      return;
+    }
+
     const fetchOrderById = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/orders/${id}`, {
-          method: 'GET',
+        const response = await fetch(`${API_URL}/orders/${id}`, {
+          method: "GET",
           headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         });
 
         if (!response.ok) {
-          throw new Error('Error al obtener la orden');
+          throw new Error("Error al obtener la orden");
         }
 
         const data: Order = await response.json();
@@ -59,7 +69,7 @@ export default function OrderDetails() {
         if (err instanceof Error) {
           setError(err.message);
         } else {
-          setError('Ha ocurrido un error inesperado');
+          setError("Ha ocurrido un error inesperado");
         }
       } finally {
         setLoading(false);
@@ -67,24 +77,32 @@ export default function OrderDetails() {
     };
 
     fetchOrderById();
-  }, [id, token]);
+  }, [id, token, API_URL]);
 
   // Función para eliminar la orden
   const handleDelete = async () => {
+    if (!id) {
+      setErrorMessage("ID de la orden no encontrado");
+      setShowErrorNotification(true);
+      return;
+    }
+
     try {
-      const response = await fetch(`http://localhost:3001/orders/${id}`, {
-        method: 'DELETE',
+      const response = await fetch(`${API_URL}/orders/${id}`, {
+        method: "DELETE",
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
       });
 
       if (!response.ok) {
-        setErrorMessage("'Error al eliminar la orden");
+        setErrorMessage("Error al eliminar la orden");
+        setShowErrorNotification(true);
+        return;
       }
 
-      setNotificationMessageOrder(`Orden eliminada`);
+      setNotificationMessageOrder("Orden eliminada");
       setShowNotificationOrder(true);
       setTimeout(() => {
         setShowNotificationOrder(false);
@@ -94,15 +112,17 @@ export default function OrderDetails() {
       if (err instanceof Error) {
         setError(err.message);
       } else {
-        setError('Ha ocurrido un error inesperado');
+        setError("Ha ocurrido un error inesperado");
       }
     }
   };
 
   if (loading) {
-    return <div className="flex justify-center items-center h-screen">
-      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-purple-500"></div>
-    </div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-purple-500"></div>
+      </div>
+    );
   }
 
   if (error) {
@@ -119,35 +139,63 @@ export default function OrderDetails() {
         <h1 className="text-3xl font-bold text-center text-blue-950 mb-8">
           Detalles de la Orden
         </h1>
-        <p className="text-gray-600 mb-1 text-sm"> <strong>ID:  {order.id}</strong></p>
         <p className="text-gray-600 mb-1 text-sm">
-          <strong>Fecha: </strong>{new Date(order.date).toLocaleDateString()}
+          {" "}
+          <strong>ID: {order.id}</strong>
         </p>
-        <p className="text-gray-600 mb-1 text-sm"><strong>Estado: </strong>{order.status}</p>
-        
-        <h3 className="text-lg font-semibold text-teal-600 mb-2">Datos del Usuario</h3>
-        <p className="text-gray-600 mb-1 text-sm"><strong>Nombre: </strong>{order.user.name}</p>
-        <p className="text-gray-600 mb-1 text-sm"><strong>Apellido: </strong>{order.user.lastname}</p>
-        <p className="text-gray-600 mb-1 text-sm"><strong>Email: </strong>{order.user.email}</p>
-        <p className="text-gray-600 mb-1 text-sm"><strong>Teléfono: </strong>{order.user.phone}</p>
-  
-        <h3 className="text-lg font-semibold text-teal-600 mb-2">Detalles de la Orden</h3>
-        <p className="text-gray-600 mb-1 text-sm"><strong>Precio: </strong>${order.orderDetails.price}</p>
-        <p className="text-gray-600 mb-1 text-sm"><strong>Cantidad: </strong>{order.orderDetails.quantity}</p>
+        <p className="text-gray-600 mb-1 text-sm">
+          <strong>Fecha: </strong>
+          {new Date(order.date).toLocaleDateString()}
+        </p>
+        <p className="text-gray-600 mb-1 text-sm">
+          <strong>Estado: </strong>
+          {order.status}
+        </p>
+
+        <h3 className="text-lg font-semibold text-teal-600 mb-2">
+          Datos del Usuario
+        </h3>
+        <p className="text-gray-600 mb-1 text-sm">
+          <strong>Nombre: </strong>
+          {order.user.name}
+        </p>
+        <p className="text-gray-600 mb-1 text-sm">
+          <strong>Apellido: </strong>
+          {order.user.lastname}
+        </p>
+        <p className="text-gray-600 mb-1 text-sm">
+          <strong>Email: </strong>
+          {order.user.email}
+        </p>
+        <p className="text-gray-600 mb-1 text-sm">
+          <strong>Teléfono: </strong>
+          {order.user.phone}
+        </p>
+
+        <h3 className="text-lg font-semibold text-teal-600 mb-2">
+          Detalles de la Orden
+        </h3>
+        <p className="text-gray-600 mb-1 text-sm">
+          <strong>Precio: </strong>${order.orderDetails.price}
+        </p>
+        <p className="text-gray-600 mb-1 text-sm">
+          <strong>Cantidad: </strong>
+          {order.orderDetails.quantity}
+        </p>
 
         <div className="flex justify-center">
-        <button 
-          onClick={handleDelete} 
-          className="mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition duration-300"
-        >
-          Eliminar Orden
-        </button>
+          <button
+            onClick={handleDelete}
+            className="mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition duration-300"
+          >
+            Eliminar Orden
+          </button>
         </div>
       </div>
       {showNotificationOrder && (
         <NotificationRegister message={notificationMessageOrder} />
       )}
-       {showErrorNotification && (
+      {showErrorNotification && (
         <NotificationError
           message={errorMessage}
           onClose={() => setShowErrorNotification(false)}

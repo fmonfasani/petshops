@@ -8,9 +8,9 @@ import { useRouter } from "next/navigation";
 export default function AdminAccesControl() {
   const { isAdmin, isLogged } = useContext(UserContext);
   const router = useRouter();
-  
+
   const [showNotification, setShowNotification] = useState(false);
-  const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationMessage, setNotificationMessage] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,7 +18,9 @@ export default function AdminAccesControl() {
     if (loading) return;
 
     if (!isLogged || !isAdmin) {
-      setNotificationMessage('Debes ser administrador para acceder a esta sección.');
+      setNotificationMessage(
+        "Debes ser administrador para acceder a esta sección.",
+      );
       setShowNotification(true);
 
       // Redirigir después de 2 segundos
@@ -37,7 +39,9 @@ export default function AdminAccesControl() {
   return (
     <>
       {isAdmin && <AdminAccesControlComponent />}
-      {showNotification && <NotificationRegister message={notificationMessage} />}
+      {showNotification && (
+        <NotificationRegister message={notificationMessage} />
+      )}
     </>
   );
 }

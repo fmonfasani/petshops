@@ -3,67 +3,69 @@ import { IUserRegister } from "@/Interfaces/interfaces";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 //Crear usuario como administrador
-export const fetchAdminCreateUser = async (userData: IUserRegister, token: string) => {
+export const fetchAdminCreateUser = async (
+  userData: IUserRegister,
+  token: string,
+) => {
   try {
-      const response = await fetch(`${API_URL}/admin/users/register`, {
-          method: 'POST',
-          headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(userData),
-      });
+    const response = await fetch(`${API_URL}/admin/users/register`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
 
-      if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(`Error: ${response.status} ${response.statusText} - ${errorData.message || errorData}`);
-      }
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(
+        `Error: ${response.status} ${response.statusText} - ${errorData.message || errorData}`,
+      );
+    }
 
-      const responseData = await response.json();
+    const responseData = await response.json();
 
-      if (responseData && typeof responseData === 'object') {
-          return responseData;
-      }
+    if (responseData && typeof responseData === "object") {
+      return responseData;
+    }
 
-      return responseData; 
+    return responseData;
   } catch (error) {
-      console.error('Error durante la solicitud de registro:', error);
-      throw error; 
+    console.error("Error durante la solicitud de registro:", error);
+    throw error;
   }
 };
 
-
 //Ver usuarios registrados
-export const fetchGetUsers = async (token:string) => {
+export const fetchGetUsers = async (token: string) => {
   const response = await fetch(`${API_URL}/admin/users`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
-  
+
   if (!response.ok) {
-    throw new Error('Failed to fetch users');
+    throw new Error("Failed to fetch users");
   }
 
   const data = await response.json();
   return data;
 };
 
-
-
 //Ver usuario por Id
 export const fetchUserById = async (id: string, token: string) => {
   const res = await fetch(`${API_URL}/admin/users/${id}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      Authorization: `Bearer ${token}`, 
-      'Content-Type': 'application/json'
-    }
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
   });
-  
+
   if (!res.ok) {
-    throw new Error('Error al obtener el usuario');
+    throw new Error("Error al obtener el usuario");
   }
 
   return await res.json();
@@ -72,15 +74,15 @@ export const fetchUserById = async (id: string, token: string) => {
 // Eliminar usuario
 export const deleteUser = async (id: string, token: string) => {
   const res = await fetch(`${API_URL}/admin/users/${id}`, {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
-      Authorization: `Bearer ${token}`, 
-      'Content-Type': 'application/json'
-    }
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
   });
-  
+
   if (!res.ok) {
-    throw new Error('Error al eliminar el usuario');
+    throw new Error("Error al eliminar el usuario");
   }
 
   return await res.json();

@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { FaHeartbeat, FaBone, FaShower } from "react-icons/fa";
-import { GiSoccerBall } from "react-icons/gi"; 
+import { GiSoccerBall } from "react-icons/gi";
 import { RiTShirt2Line } from "react-icons/ri";
 import perritos2 from "../../../../public/perritos2.png";
-import PerroGeneral from "../../../components/Productos/Perro/perro"; 
+import PerroGeneral from "../../../components/Productos/Perro/perro";
 import Link from "next/link";
 
 export default function Perro() {
@@ -20,13 +20,12 @@ export default function Perro() {
         <hr className="border-teal-600 border-2 w-full my-4" />
       </div>
       <h1 className="text-2xl font-bold mb-6">Categorias</h1>
-     
+
       <div className="flex justify-center gap-6">
         <Link href="/Categorias/Perro/SubCategorias/Alimento" passHref>
           <button className="flex flex-col items-center justify-center text-center hover:text-orange-400 transition">
             <span className="text-lg mb-2">Alimentos</span>
             <FaBone className="text-teal-600 text-6xl" />
-           
           </button>
         </Link>
 
@@ -48,7 +47,6 @@ export default function Perro() {
           <button className="flex flex-col items-center justify-center text-center hover:text-orange-400 transition">
             <span className="text-lg mb-2">Juguetes</span>
             <GiSoccerBall className="text-teal-600 text-6xl" />{" "}
-      
           </button>
         </Link>
 

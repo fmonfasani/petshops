@@ -4,7 +4,7 @@ const BASE_URL = "http://localhost:3001/products";
 
 // Función para obtener un producto por su ID
 export const fetchProductsById = async (
-  productId: number
+  productId: number,
 ): Promise<IProduct> => {
   try {
     const response = await fetch(`${BASE_URL}/${productId}`);
@@ -25,7 +25,7 @@ export const fetchProductsById = async (
 export const addToCart = async (
   userId: string,
   products: IProduct[],
-  token: string
+  token: string,
 ): Promise<void> => {
   try {
     const orderData = {
@@ -40,7 +40,7 @@ export const addToCart = async (
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization:`Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(orderData),
     });

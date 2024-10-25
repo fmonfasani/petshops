@@ -15,7 +15,7 @@ interface IUserAppointments {
 const AppointmentHistory: React.FC = () => {
   const { token } = useContext(UserContext);
   const [appointments, setAppointments] = useState<IUserAppointments | null>(
-    null
+    null,
   );
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -65,10 +65,11 @@ const AppointmentHistory: React.FC = () => {
 
         return {
           ...prev,
-          scheduledAppointments: prev.scheduledAppointments.map((appointment) =>
-            appointment.id === appointmentId
-              ? { ...appointment, status: "cancelled" }
-              : appointment
+          scheduledAppointments: prev.scheduledAppointments.map(
+            (appointment) =>
+              appointment.id === appointmentId
+                ? { ...appointment, status: "cancelled" }
+                : appointment,
           ),
           historicalAppointments: prev.historicalAppointments || [],
         };
@@ -77,7 +78,7 @@ const AppointmentHistory: React.FC = () => {
       setError(
         error instanceof Error
           ? error.message
-          : "Error desconocido al cancelar el turno"
+          : "Error desconocido al cancelar el turno",
       );
       console.error("Error al cancelar el turno:", error);
     }

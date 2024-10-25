@@ -8,7 +8,7 @@ const productsToPreLoad = [
     stock: 20,
     image:
       "https://cdn.royalcanin-weshare-online.io/wefNEnsBaPOZra8qk7jH/v5/ar-l-productos-perro-nutricion-especifica",
-    categoryId: 1
+    categoryId: 1,
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ const productsToPreLoad = [
     stock: 15,
     image:
       "https://purina.co.cr/sites/default/files/styles/webp/public/2024-02/mejores-juguetes-para-gatos-varas.jpg.webp?itok=aRLqUp8T",
-    categoryId: 2
+    categoryId: 2,
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const productsToPreLoad = [
     stock: 12,
     image:
       "https://virtualmuebles.com/cdn/shop/products/81uVPnsMnRL._AC_SL1500.jpg?v=1723031681",
-    categoryId: 3
+    categoryId: 3,
   },
   {
     id: 4,
@@ -40,7 +40,7 @@ const productsToPreLoad = [
     price: 15,
     stock: 18,
     image: "https://img.ws.mms.shopee.com.co/8b772107268707505adff5750f8ee3dc",
-    categoryId: 4
+    categoryId: 4,
   },
   {
     id: 5,
@@ -51,7 +51,7 @@ const productsToPreLoad = [
     stock: 25,
     image:
       "https://i5.walmartimages.com.mx/mg/gm/1p/images/product-images/img_large/00750155646618l.jpg",
-    categoryId: 5
+    categoryId: 5,
   },
   {
     id: 6,
@@ -61,8 +61,8 @@ const productsToPreLoad = [
     price: 20,
     stock: 10,
     image: "https://m.media-amazon.com/images/I/51TGvIzQTsL.jpg",
-    categoryId: 6
-  }
+    categoryId: 6,
+  },
 ];
 
 export default productsToPreLoad;

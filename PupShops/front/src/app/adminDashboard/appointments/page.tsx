@@ -1,19 +1,17 @@
 "use client";
-import React, { useContext } from 'react'
-import { UserContext} from '@/context/userContext';
-import { useEffect,useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { NotificationRegister } from '@/components/Notifications/NotificationRegister';
-import AdminAppointmentsComponent from '@/components/AdminAppointments/AdminAppointments';
-
-
+import React, { useContext } from "react";
+import { UserContext } from "@/context/userContext";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { NotificationRegister } from "@/components/Notifications/NotificationRegister";
+import AdminAppointmentsComponent from "@/components/AdminAppointments/AdminAppointments";
 
 export default function AdminAppointments() {
   const { isAdmin } = useContext(UserContext);
-    const router = useRouter()
+  const router = useRouter();
 
   const [showNotification, setShowNotification] = useState(false);
-  const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationMessage, setNotificationMessage] = useState("");
   const [loading, setLoading] = useState(true);
 
   //Ruta privada
@@ -21,10 +19,9 @@ export default function AdminAppointments() {
     if (!isAdmin) {
       setNotificationMessage("Debes ser administrador para ver turnos");
       setShowNotification(true);
-       router.push("/home");
-
-     } else {
-      setLoading(false); 
+      router.push("/home");
+    } else {
+      setLoading(false);
     }
   }, [isAdmin, router]);
 
@@ -35,10 +32,12 @@ export default function AdminAppointments() {
       </div>
     );
 
-    return (
-      <>
-       {isAdmin && <AdminAppointmentsComponent/> }
-       {showNotification && <NotificationRegister message={notificationMessage} />}
-             </>
-    );
-  }
+  return (
+    <>
+      {isAdmin && <AdminAppointmentsComponent />}
+      {showNotification && (
+        <NotificationRegister message={notificationMessage} />
+      )}
+    </>
+  );
+}

@@ -7,7 +7,6 @@ import Image from "next/image";
 import pups from "../../../public/pups.png";
 import SearchBar from "../SerchBar/SerchBar";
 
-
 //validar rol admin
 //otorgar rol de admin a user
 //cargar productos / modificar o eliminar / notificacion de bajo stock
@@ -15,7 +14,6 @@ import SearchBar from "../SerchBar/SerchBar";
 //ver ordenes de productos, su estado // historial de productos
 //modificar contacto
 //ver pagos?
-
 
 export default function NavbarAdminComponent() {
   const router = useRouter();
@@ -34,7 +32,7 @@ export default function NavbarAdminComponent() {
 
   const handleMenuClick = (
     setter: React.Dispatch<React.SetStateAction<boolean>>,
-    current: boolean
+    current: boolean,
   ) => {
     // Si el menú ya está abierto, lo cerramos. Si no, cerramos todos los demás y abrimos el menú correspondiente.
     if (current) {
@@ -79,10 +77,8 @@ export default function NavbarAdminComponent() {
             aria-label="Global"
             className="hidden md:flex gap-6 text-sm flex-1"
           >
-           
             {/* Menu Productos */}
             <div className="relative group">
-          
               <button
                 className="text-gray-500 transition hover:text-gray-500/75"
                 onClick={() => handleMenuClick(setIsProductOpen, isProductOpen)}
@@ -91,12 +87,13 @@ export default function NavbarAdminComponent() {
               </button>
               {isProductOpen && (
                 <div className="absolute mt-2 w-48 bg-white shadow-lg rounded-lg">
-                
-               <button
+                  <button
                     className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left"
-                    onClick={() => handleProductMenuClick("/adminDashboard/uploadProducts")}
-                    >
-                      Cargar productos
+                    onClick={() =>
+                      handleProductMenuClick("/adminDashboard/uploadProducts")
+                    }
+                  >
+                    Cargar productos
                   </button>
                   <button
                     className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left"
@@ -104,7 +101,7 @@ export default function NavbarAdminComponent() {
                   >
                     Editar y Eliminar
                   </button>
-                   </div>
+                </div>
               )}
             </div>
 
@@ -126,7 +123,7 @@ export default function NavbarAdminComponent() {
                   >
                     Turnos
                   </button>
-                   </div>
+                </div>
               )}
             </div>
 
@@ -137,7 +134,6 @@ export default function NavbarAdminComponent() {
             >
               Ordenes
             </button>
-           
 
             {/* Botón de usuarios en escritorio */}
             <div className="relative group">
@@ -160,7 +156,9 @@ export default function NavbarAdminComponent() {
                   <button
                     className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left"
                     onClick={() =>
-                      handleProfileMenuClick("/adminDashboard/users/accessControl")
+                      handleProfileMenuClick(
+                        "/adminDashboard/users/accessControl",
+                      )
                     }
                   >
                     Permisos de usuarios
@@ -193,7 +191,9 @@ export default function NavbarAdminComponent() {
                 </button>
                 <button
                   className="flex justify-end w-full p-2 text-gray-700 hover:bg-gray-200"
-                  onClick={() => handleMenuClick(setIsProductOpen, isProductOpen)}
+                  onClick={() =>
+                    handleMenuClick(setIsProductOpen, isProductOpen)
+                  }
                 >
                   Productos
                 </button>
@@ -201,34 +201,49 @@ export default function NavbarAdminComponent() {
                   <div className="flex flex-col pl-4 bg-gray-100 items-end">
                     <button
                       className="p-2 text-gray-700 hover:bg-gray-200 w-full text-right"
-                      onClick={() => handleProductMenuClick("/adminDashboard/uploadProducts")}
-                      >
-                        Cargar productos
+                      onClick={() =>
+                        handleProductMenuClick("/adminDashboard/uploadProducts")
+                      }
+                    >
+                      Cargar productos
                     </button>
                     <button
                       className="p-2 text-gray-700 hover:bg-gray-200 w-full text-right"
                       onClick={() => handleProductMenuClick("/products")}
-                      >
-                        Editar y Eliminar
+                    >
+                      Editar y Eliminar
                     </button>
-                      </div>
+                  </div>
                 )}
-               <button className="flex justify-end w-full p-2 text-gray-700 hover:bg-gray-200" onClick={() => handleMenuClick(setIsServiceOpen, isServiceOpen)}>
-              Servicios
-            </button>
-            {isServiceOpen && (
-              <div className="flex flex-col pl-4 bg-gray-100 items-end">
-                <button className="p-2 text-gray-700 hover:bg-gray-200 w-full text-right" onClick={() => handleServiceMenuClick("/adminDashboard/appointments")}>
-                  Turnos
+                <button
+                  className="flex justify-end w-full p-2 text-gray-700 hover:bg-gray-200"
+                  onClick={() =>
+                    handleMenuClick(setIsServiceOpen, isServiceOpen)
+                  }
+                >
+                  Servicios
                 </button>
-              </div>
-            )}
+                {isServiceOpen && (
+                  <div className="flex flex-col pl-4 bg-gray-100 items-end">
+                    <button
+                      className="p-2 text-gray-700 hover:bg-gray-200 w-full text-right"
+                      onClick={() =>
+                        handleServiceMenuClick("/adminDashboard/appointments")
+                      }
+                    >
+                      Turnos
+                    </button>
+                  </div>
+                )}
 
-            {/* Botón de Ordenes siempre aparte */}
-            <button className="flex justify-end w-full p-2 text-gray-700 hover:bg-gray-200" onClick={() => router.push("/adminDashboard/orders")}>
-              Ordenes
-            </button>
-              
+                {/* Botón de Ordenes siempre aparte */}
+                <button
+                  className="flex justify-end w-full p-2 text-gray-700 hover:bg-gray-200"
+                  onClick={() => router.push("/adminDashboard/orders")}
+                >
+                  Ordenes
+                </button>
+
                 {/* Botón de usuarios al final */}
                 <button
                   className="flex justify-end w-full p-2 text-gray-700 hover:bg-gray-200"
@@ -243,7 +258,9 @@ export default function NavbarAdminComponent() {
                     <button
                       className="p-2 text-gray-700 hover:bg-gray-200 w-full text-right"
                       onClick={() =>
-                        handleProfileMenuClick("/adminDashboard/users/usersData")
+                        handleProfileMenuClick(
+                          "/adminDashboard/users/usersData",
+                        )
                       }
                     >
                       Datos de usuarios
@@ -251,17 +268,19 @@ export default function NavbarAdminComponent() {
                     <button
                       className="p-2 text-gray-700 hover:bg-gray-200 w-full text-right"
                       onClick={() =>
-                        handleProfileMenuClick("/adminDashboard/users/accessControl")
+                        handleProfileMenuClick(
+                          "/adminDashboard/users/accessControl",
+                        )
                       }
                     >
                       Permisos de usuarios
                     </button>
                     <button
-                        className="p-2 text-gray-700 hover:bg-gray-200 w-full text-right"
-                        onClick={() => handleProfileMenuClick("/ProfilePage")}
-                      >
-                        Panel de Usuario
-                      </button>
+                      className="p-2 text-gray-700 hover:bg-gray-200 w-full text-right"
+                      onClick={() => handleProfileMenuClick("/ProfilePage")}
+                    >
+                      Panel de Usuario
+                    </button>
                   </div>
                 )}
               </div>

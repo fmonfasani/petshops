@@ -25,7 +25,7 @@ const AppointmentForm = () => {
 
     if (!isDateValid(dateValue)) {
       alert(
-        "La fecha no es válida. Debe ser a partir de mañana, dentro de 5 días y no ser domingo."
+        "La fecha no es válida. Debe ser a partir de mañana, dentro de 5 días y no ser domingo.",
       );
       setSelectedDate("");
     } else {
@@ -72,7 +72,7 @@ const AppointmentForm = () => {
             appointmentTime: appointment.appointmentTime,
             serviceName: appointment.serviceName,
           }),
-        }
+        },
       );
 
       if (response.ok) {

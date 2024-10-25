@@ -24,20 +24,21 @@ export const validationRegister = (userRegister: IUserRegister) => {
   }
 
   // Validar contraseña
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   if (!userRegister.password) {
     errors.password = "Debes ingresar una contraseña";
   } else if (!passwordRegex.test(userRegister.password)) {
-    errors.password = "La contraseña debe contener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial";
+    errors.password =
+      "La contraseña debe contener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial";
   }
 
-// Validar confirmar contraseña
-if (!userRegister.confirmPassword) {
-  errors.confirmPassword = "Debes confirmar la contraseña";
-} else if (userRegister.confirmPassword !== userRegister.password) {
-  errors.confirmPassword = "Las contraseñas no coinciden";
-}
-
+  // Validar confirmar contraseña
+  if (!userRegister.confirmPassword) {
+    errors.confirmPassword = "Debes confirmar la contraseña";
+  } else if (userRegister.confirmPassword !== userRegister.password) {
+    errors.confirmPassword = "Las contraseñas no coinciden";
+  }
 
   // Validar dirección
   if (!userRegister.address) {
@@ -46,20 +47,17 @@ if (!userRegister.confirmPassword) {
     errors.address = "La dirección debe tener hasta 80 caracteres";
   }
 
-  
-// Validar teléfono
-if (!userRegister.phone) {
-  errors.phone = "Debes ingresar un número de teléfono";
-} else {
-  const phoneString = userRegister.phone.toString();
-  if (phoneString.length < 10) {
-    errors.phone = "El número de teléfono debe tener al menos 10 dígitos.";
-  } else if (phoneString.length > 15) {
-    errors.phone = "El número de teléfono no puede tener más de 15 dígitos.";
+  // Validar teléfono
+  if (!userRegister.phone) {
+    errors.phone = "Debes ingresar un número de teléfono";
+  } else {
+    const phoneString = userRegister.phone.toString();
+    if (phoneString.length < 10) {
+      errors.phone = "El número de teléfono debe tener al menos 10 dígitos.";
+    } else if (phoneString.length > 15) {
+      errors.phone = "El número de teléfono no puede tener más de 15 dígitos.";
+    }
   }
-}
-
-
 
   // Validar país
   if (!userRegister.country) {

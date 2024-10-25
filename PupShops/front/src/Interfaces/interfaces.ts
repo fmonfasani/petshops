@@ -43,6 +43,11 @@ export interface IUserContextType {
   logOut: () => void;
   token: string | null;
   setToken: React.Dispatch<React.SetStateAction<string | null>>;
+
+  // Propiedades del modal
+  isModalOpen: boolean; // Estado para saber si el modal está abierto
+  openModal: () => void; // Función para abrir el modal
+  closeModal: () => void; // Función para cerrar el modal
 }
 
 export interface ILoginUser {

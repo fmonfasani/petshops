@@ -25,7 +25,7 @@ const SaludPerro: React.FC = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3001/products/category/${categoryId}`
+          `http://localhost:3001/products/category/${categoryId}`,
         );
 
         if (!response.ok) {
@@ -42,10 +42,13 @@ const SaludPerro: React.FC = () => {
         }));
 
         setProducts(formattedData);
-        const initialQuantity = formattedData.reduce((acc, product) => {
-          acc[product.id] = 1;
-          return acc;
-        }, {} as { [key: number]: number });
+        const initialQuantity = formattedData.reduce(
+          (acc, product) => {
+            acc[product.id] = 1;
+            return acc;
+          },
+          {} as { [key: number]: number },
+        );
         setQuantity(initialQuantity);
       } catch (error) {
         console.error("Error al obtener los productos:", error);
@@ -91,7 +94,7 @@ const SaludPerro: React.FC = () => {
 
   const updateQuantity = (
     productId: number,
-    operation: "increment" | "decrement"
+    operation: "increment" | "decrement",
   ) => {
     setQuantity((prevQuantities) => ({
       ...prevQuantities,
@@ -106,7 +109,7 @@ const SaludPerro: React.FC = () => {
     setSelectedOptions((prev) =>
       prev.includes(option)
         ? prev.filter((o) => o !== option)
-        : [...prev, option]
+        : [...prev, option],
     );
   };
 

@@ -24,7 +24,7 @@ const PerroGeneral: React.FC = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3001/products/category/${categoryId}`
+          `http://localhost:3001/products/category/${categoryId}`,
         );
 
         if (!response.ok) {
@@ -41,10 +41,13 @@ const PerroGeneral: React.FC = () => {
         }));
 
         setProducts(formattedData);
-        const initialQuantity = formattedData.reduce((acc, product) => {
-          acc[product.id] = 1;
-          return acc;
-        }, {} as { [key: number]: number });
+        const initialQuantity = formattedData.reduce(
+          (acc, product) => {
+            acc[product.id] = 1;
+            return acc;
+          },
+          {} as { [key: number]: number },
+        );
         setQuantity(initialQuantity);
       } catch (error) {
         console.error("Error al obtener los productos:", error);
@@ -69,7 +72,7 @@ const PerroGeneral: React.FC = () => {
 
   const updateQuantity = (
     productId: number,
-    operation: "increment" | "decrement"
+    operation: "increment" | "decrement",
   ) => {
     setQuantity((prevQuantities) => ({
       ...prevQuantities,
@@ -83,9 +86,14 @@ const PerroGeneral: React.FC = () => {
   return (
     <div className="container mx-auto mt-10 p-4 bg-slate-50">
       <div className="bg-teal-600 rounded-lg text-center p-2 m-2 hover:bg-orange-300">
-        <span>NO TE OLVIDES QUE COMPRANDO ARRIBA DE LOS $100 TENES EL 10% DE DESCUENTO</span>
+        <span>
+          NO TE OLVIDES QUE COMPRANDO ARRIBA DE LOS $100 TENES EL 10% DE
+          DESCUENTO
+        </span>
       </div>
-      <h1 className="text-2xl text-center font-bold mb-4">Productos para Perro</h1>
+      <h1 className="text-2xl text-center font-bold mb-4">
+        Productos para Perro
+      </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {currentProducts.map((product) => (
           <div

@@ -48,7 +48,7 @@ export default function RegisterUser() {
   const [generalError, setGeneralError] = useState<string | null>(null);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
 
@@ -94,17 +94,17 @@ export default function RegisterUser() {
         const isRegistered = await response.json();
         if (isRegistered) {
           console.log(
-            "Usuario registrado exitosamente en el backend de NestJS."
+            "Usuario registrado exitosamente en el backend de NestJS.",
           );
         }
       } else {
         setGeneralError(
-          "Registro inválido. Por favor, revisa los datos ingresados."
+          "Registro inválido. Por favor, revisa los datos ingresados.",
         );
       }
     } catch (error) {
       setErrorMessage(
-        error instanceof Error ? error.message : "Error desconocido."
+        error instanceof Error ? error.message : "Error desconocido.",
       );
       setShowErrorNotification(true);
       setTimeout(() => setShowErrorNotification(false), 3000);

@@ -1,15 +1,15 @@
-"use client"; 
-import React, { useContext, useEffect, useState } from 'react';
-import LoginPage from '@/components/Forms/FormsUser/LoginUser';
-import { UserContext } from '@/context/userContext';
-import { useRouter } from 'next/navigation';
-import { NotificationRegister } from '@/components/Notifications/NotificationRegister';
+"use client";
+import React, { useContext, useEffect, useState } from "react";
+import LoginPage from "@/components/Forms/FormsUser/LoginUser";
+import { UserContext } from "@/context/userContext";
+import { useRouter } from "next/navigation";
+import { NotificationRegister } from "@/components/Notifications/NotificationRegister";
 
 export default function Login() {
-    const { isLogged, setToken } = useContext(UserContext);
-  const [loading, setLoading] = useState(true); 
+  const { isLogged, setToken } = useContext(UserContext);
+  const [loading, setLoading] = useState(true);
   const [showNotification, setShowNotification] = useState(false);
-  const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationMessage, setNotificationMessage] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -38,8 +38,10 @@ export default function Login() {
 
   return (
     <div>
-      {!isLogged &&  <LoginPage setToken={setToken}/>}   
-      {showNotification && <NotificationRegister message={notificationMessage} />} 
+      {!isLogged && <LoginPage setToken={setToken} />}
+      {showNotification && (
+        <NotificationRegister message={notificationMessage} />
+      )}
     </div>
   );
 }

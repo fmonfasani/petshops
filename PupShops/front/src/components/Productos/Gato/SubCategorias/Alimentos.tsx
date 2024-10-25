@@ -26,7 +26,7 @@ const AlimentosGatos: React.FC = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3001/products/category/${categoryId}`
+          `http://localhost:3001/products/category/${categoryId}`,
         );
 
         if (!response.ok) {
@@ -47,7 +47,7 @@ const AlimentosGatos: React.FC = () => {
             acc[product.id] = 1;
             return acc;
           },
-          {} as { [key: number]: number }
+          {} as { [key: number]: number },
         );
         setQuantity(initialQuantity);
       } catch (error) {
@@ -101,7 +101,7 @@ const AlimentosGatos: React.FC = () => {
 
   const updateQuantity = (
     productId: number,
-    operation: "increment" | "decrement"
+    operation: "increment" | "decrement",
   ) => {
     setQuantity((prevQuantities) => ({
       ...prevQuantities,
@@ -116,13 +116,13 @@ const AlimentosGatos: React.FC = () => {
     setSelectedOptions((prev) =>
       prev.includes(option)
         ? prev.filter((o) => o !== option)
-        : [...prev, option]
+        : [...prev, option],
     );
   };
 
   const toggleBrand = (brand: string) => {
     setSelectedBrands((prev) =>
-      prev.includes(brand) ? prev.filter((b) => b !== brand) : [...prev, brand]
+      prev.includes(brand) ? prev.filter((b) => b !== brand) : [...prev, brand],
     );
   };
 

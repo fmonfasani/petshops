@@ -7,7 +7,7 @@ const productsDogFood = [
     price: 30,
     imgUrl:
       "https://laikapp.s3.amazonaws.com/dev_images_products/dff0586acb5d3de1a58690f63ba9f315_1717358353.jpg",
-    categoryId: 1
+    categoryId: 1,
   },
   {
     id: 2,
@@ -16,7 +16,7 @@ const productsDogFood = [
       "Alimento rico en proteínas naturales, sin subproductos ni conservantes artificiales. Ideal para mantener una dieta saludable.",
     price: 28,
     imgUrl: "https://ss345.liverpool.com.mx/xl/1156163216.jpg",
-    categoryId: 1
+    categoryId: 1,
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const productsDogFood = [
     price: 35,
     imgUrl:
       "https://laikapp.s3.amazonaws.com/dev_images_products/b5c8ad4def3a813e637fea86de9178e9_1700771949.jpg",
-    categoryId: 1
+    categoryId: 1,
   },
   {
     id: 4,
@@ -36,8 +36,8 @@ const productsDogFood = [
     price: 25,
     imgUrl:
       "https://www.supermascotas.com.co/wp-content/uploads/2023/05/7501072208231_1.jpg",
-    categoryId: 1
-  }
+    categoryId: 1,
+  },
 ];
 
 export default productsDogFood;

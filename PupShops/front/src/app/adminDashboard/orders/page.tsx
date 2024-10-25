@@ -1,32 +1,32 @@
 "use client";
-import React, { useContext } from 'react'
-import { UserContext } from '@/context/userContext';
-import { useEffect,useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { NotificationRegister } from '@/components/Notifications/NotificationRegister';
-import AdminOrdersComponent from '@/components/AdminOrdersComponent/AdminOrdersComponent'
+import React, { useContext } from "react";
+import { UserContext } from "@/context/userContext";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { NotificationRegister } from "@/components/Notifications/NotificationRegister";
+import AdminOrdersComponent from "@/components/AdminOrdersComponent/AdminOrdersComponent";
 
 export default function AdminOrders() {
   const { isAdmin } = useContext(UserContext);
-  const router = useRouter()
+  const router = useRouter();
 
   const [showNotification, setShowNotification] = useState(false);
-  const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationMessage, setNotificationMessage] = useState("");
   const [loading, setLoading] = useState(true);
 
   //Ruta privada
   useEffect(() => {
     if (!isAdmin) {
-      setNotificationMessage('Debes ser administrador para ver ordenes');
+      setNotificationMessage("Debes ser administrador para ver ordenes");
       setShowNotification(true);
-      setLoading(false)
+      setLoading(false);
 
       setTimeout(() => {
         setShowNotification(false);
         router.push("/home");
-                }, 2000);
-     } else {
-      setLoading(false); 
+      }, 2000);
+    } else {
+      setLoading(false);
     }
   }, [isAdmin, router]);
 
@@ -37,10 +37,12 @@ export default function AdminOrders() {
       </div>
     );
 
-    return (
-      <>
-       {isAdmin && <AdminOrdersComponent/>}
-       {showNotification && <NotificationRegister message={notificationMessage} />}
-             </>
-    );
-  }
+  return (
+    <>
+      {isAdmin && <AdminOrdersComponent />}
+      {showNotification && (
+        <NotificationRegister message={notificationMessage} />
+      )}
+    </>
+  );
+}

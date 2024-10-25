@@ -5,8 +5,7 @@ import { cartContext } from "@/context/cartContext";
 import { IProduct } from "@/Interfaces/ICart";
 import Image from "next/image";
 
-import { FaTrash } from "react-icons/fa"; 
-
+import { FaTrash } from "react-icons/fa";
 
 interface CartItemProps {
   item: IProduct;
@@ -24,7 +23,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
     setQuantity((prevQuantity) =>
       operation === "increment"
         ? prevQuantity + 1
-        : Math.max(prevQuantity - 1, 1)
+        : Math.max(prevQuantity - 1, 1),
     );
   };
 

@@ -1,5 +1,5 @@
 "use client";
-import { UserContext} from "@/context/userContext";
+import { UserContext } from "@/context/userContext";
 import { useContext, useEffect, useState } from "react";
 import { getAllProducts } from "@/helpers/product.helper";
 import Link from "next/link";
@@ -9,7 +9,6 @@ import { NotificationRegister } from "../Notifications/NotificationRegister";
 import { NotificationError } from "../Notifications/NotificationError";
 
 import { useRouter } from "next/navigation";
-
 
 export interface IProduct {
   id: string;
@@ -25,9 +24,7 @@ export interface IProduct {
 }
 
 const ProductsPage = () => {
-
   const { isAdmin } = useContext(UserContext);
-  
 
   // Estados
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -91,7 +88,7 @@ const ProductsPage = () => {
   const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
   const currentItems = sortedProducts.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    currentPage * itemsPerPage,
   );
 
   const handlePageChange = (page: number) => {
@@ -103,7 +100,6 @@ const ProductsPage = () => {
     setNotificationMessage(message);
     setShowNotification(true);
     setTimeout(() => setShowNotification(false), 3000);
-
   };
 
   const handleErrorNotification = (errorMessage: string) => {
@@ -112,12 +108,12 @@ const ProductsPage = () => {
     setTimeout(() => setShowErrorNotification(false), 3000);
   };
 
-
   const handleDeleteProduct = (id: string) => {
-    setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
+    setProducts((prevProducts) =>
+      prevProducts.filter((product) => product.id !== id),
+    );
   };
-  
-  
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -132,10 +128,15 @@ const ProductsPage = () => {
 
   return (
     <div className="min-h-screen text-center items-center justify-center bg-gray-100">
-      <h1 className="bg-teal-600 p-1 m-2  text-center text-cyan-50 rounded-xl hover:bg-orange-300 hover:text-black transition">Todos Nuestros Productos</h1>
+      <h1 className="bg-teal-600 p-1 m-2  text-center text-cyan-50 rounded-xl hover:bg-orange-300 hover:text-black transition">
+        Todos Nuestros Productos
+      </h1>
       <div className="container mx-auto py-10">
         <div className="flex justify-end mb-8 mt-6">
-          <label htmlFor="sort" className="mr-3 text-lg font-bold text-teal-600 mt-2">
+          <label
+            htmlFor="sort"
+            className="mr-3 text-lg font-bold text-teal-600 mt-2"
+          >
             Ordenar por:
           </label>
           <div className="bg-white shadow-lg hover:shadow-xl transition duration-500 rounded-lg p-3">
@@ -169,13 +170,20 @@ const ProductsPage = () => {
                 <h2 className="text-teal-600 font-bold text-xl mb-2 hover:text-purple-800 hover:cursor-pointer">
                   {product.name}
                 </h2>
-                <p className="text-gray-700 tracking-wide mb-4">{product.description}</p>
+                <p className="text-gray-700 tracking-wide mb-4">
+                  {product.description}
+                </p>
                 <span className="text-lg font-bold text-purple-800">
-                  ${Number(product.price).toFixed(2)} {/* Asegura que price sea un número */}
+                  ${Number(product.price).toFixed(2)}{" "}
+                  {/* Asegura que price sea un número */}
                 </span>
-                <span className="text-xs text-pink-500 block mb-2">{product.category.name}</span>
+                <span className="text-xs text-pink-500 block mb-2">
+                  {product.category.name}
+                </span>
                 {isAdmin && (
-                  <p className="text-gray-700 tracking-wide mb-4 font-bold">Stock: {product.stock}</p>
+                  <p className="text-gray-700 tracking-wide mb-4 font-bold">
+                    Stock: {product.stock}
+                  </p>
                 )}
               </div>
 
@@ -209,21 +217,32 @@ const ProductsPage = () => {
             </div>
           ))}
 
-          {showNotification && <NotificationRegister message={notificationMessage} />}
+          {showNotification && (
+            <NotificationRegister message={notificationMessage} />
+          )}
           {showErrorNotification && (
-            <NotificationError message={errorMessage} onClose={() => setShowErrorNotification(false)} />
+            <NotificationError
+              message={errorMessage}
+              onClose={() => setShowErrorNotification(false)}
+            />
           )}
         </div>
 
         <ol className="flex justify-center gap-1 text-xs font-medium mt-10">
           <li>
             <a
-              
-              onClick={() => handlePageChange(currentPage > 1 ? currentPage - 1 : 1)}
+              onClick={() =>
+                handlePageChange(currentPage > 1 ? currentPage - 1 : 1)
+              }
               className="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900"
             >
               <span className="sr-only">Prev Page</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="size-3" viewBox="0 0 20 20" fill="currentColor">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="size-3"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
                 <path
                   fillRule="evenodd"
                   d="M12.707 5.293a1 1 0 00-1.414 0L8 9.586 5.707 7.293a1 1 0 10-1.414 1.414l4 4a1 1 0 001.414 0l4-4a1 1 0 000-1.414z"
@@ -244,12 +263,20 @@ const ProductsPage = () => {
           ))}
           <li>
             <a
-              
-              onClick={() => handlePageChange(currentPage < totalPages ? currentPage + 1 : totalPages)}
+              onClick={() =>
+                handlePageChange(
+                  currentPage < totalPages ? currentPage + 1 : totalPages,
+                )
+              }
               className="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900"
             >
               <span className="sr-only">Next Page</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="size-3" viewBox="0 0 20 20" fill="currentColor">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="size-3"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
                 <path
                   fillRule="evenodd"
                   d="M7.293 5.293a1 1 0 011.414 0L12 9.586l2.293-2.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"

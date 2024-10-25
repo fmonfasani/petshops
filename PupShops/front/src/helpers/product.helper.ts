@@ -5,12 +5,12 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 export const getAllProducts = async () => {
   try {
     const res = await fetch(`http://localhost:3001/products`);
-    console.log("Raw response:", res); 
+    console.log("Raw response:", res);
     if (!res.ok) {
       throw new Error("Failed to fetch products");
     }
     const products = await res.json();
-    console.log("Products:", products); 
+    console.log("Products:", products);
     return products;
   } catch (error) {
     console.error("Error fetching products:", error);

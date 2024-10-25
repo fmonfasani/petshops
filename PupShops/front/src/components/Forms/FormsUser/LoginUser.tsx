@@ -1,9 +1,9 @@
-"use client"; 
+"use client";
 
 import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
 import { UserContext } from "@/context/userContext";
-import {  ButtonRedirectUser } from "@/components/Buttons/ButtonsForms";
+import { ButtonRedirectUser } from "@/components/Buttons/ButtonsForms";
 import { NotificationError } from "@/components/Notifications/NotificationError";
 import { NotificationRegister } from "@/components/Notifications/NotificationRegister";
 import { ILoginClientProps } from "@/Interfaces/interfaces";
@@ -34,16 +34,21 @@ function LoginPage({ setToken }: ILoginClientProps) {
     event.preventDefault();
     const { formIsValid, errors } = validateLoginForm(dataUser);
 
-  
     if (formIsValid) {
-      const credentials = { email: dataUser.email, password: dataUser.password };
+      const credentials = {
+        email: dataUser.email,
+        password: dataUser.password,
+      };
       try {
-        const success = await signIn(credentials); 
-  
+        const success = await signIn(credentials);
+
         if (success) {
-          const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+          const token =
+            typeof window !== "undefined"
+              ? localStorage.getItem("token")
+              : null;
           if (token) {
-            setToken(token); 
+            setToken(token);
 
             setNotificationMessageWelcome(`Bienvenido`);
             setShowNotificationWelcome(true);
@@ -58,23 +63,25 @@ function LoginPage({ setToken }: ILoginClientProps) {
           } else if (!dataUser.password) {
             setErrorMessage("Por favor ingresa tu contraseña");
           } else {
-            setErrorMessage("Credenciales inválidas. Verifica tu correo electrónico y contraseña.");
+            setErrorMessage(
+              "Credenciales inválidas. Verifica tu correo electrónico y contraseña.",
+            );
           }
           setShowErrorNotification(true);
-          setTimeout(() => setShowErrorNotification(false), 3000); 
+          setTimeout(() => setShowErrorNotification(false), 3000);
         }
       } catch (error) {
         console.error("Error durante el inicio de sesión:", error);
-        setErrorMessage(error instanceof Error ? error.message : "Error desconocido."); 
-        setShowErrorNotification(true); 
-        setTimeout(() => setShowErrorNotification(false), 3000); 
-
+        setErrorMessage(
+          error instanceof Error ? error.message : "Error desconocido.",
+        );
+        setShowErrorNotification(true);
+        setTimeout(() => setShowErrorNotification(false), 3000);
       }
     } else {
       setErrors(errors);
     }
   };
-
 
   const handleRegisterRedirect = () => {
     router.push("/userDashboard/register");
@@ -90,7 +97,7 @@ function LoginPage({ setToken }: ILoginClientProps) {
                 Iniciar sesión en tu cuenta
               </h1>
             </div>
-  
+
             {/* Botón para iniciar sesión con email */}
             <div className="text-center">
               <a
@@ -100,10 +107,13 @@ function LoginPage({ setToken }: ILoginClientProps) {
                 Iniciar sesión con tu email
               </a>
             </div>
-  
+
             {/* Campo de email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
                 Email
               </label>
               <div className="mt-2">
@@ -118,13 +128,18 @@ function LoginPage({ setToken }: ILoginClientProps) {
                   autoComplete="email"
                   className="w-full rounded-lg border border-gray-200 p-3 text-sm"
                 />
-                {errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
+                {errors.email && (
+                  <span className="text-red-500 text-sm">{errors.email}</span>
+                )}
               </div>
             </div>
-  
+
             {/* Campo de contraseña */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
                 Contraseña
               </label>
               <div className="mt-2">
@@ -138,10 +153,14 @@ function LoginPage({ setToken }: ILoginClientProps) {
                   required
                   className="w-full rounded-lg border border-gray-200 p-3 text-sm"
                 />
-                {errors.password && <span className="text-red-500 text-sm">{errors.password}</span>}
+                {errors.password && (
+                  <span className="text-red-500 text-sm">
+                    {errors.password}
+                  </span>
+                )}
               </div>
             </div>
-  
+
             {/* Botón de iniciar sesión */}
             <div className="text-center">
               <button
@@ -153,7 +172,7 @@ function LoginPage({ setToken }: ILoginClientProps) {
               </button>
             </div>
           </form>
-  
+
           {/* Texto de registro */}
           <p className="mt-10 text-center text-sm">
             <ButtonRedirectUser
@@ -163,7 +182,7 @@ function LoginPage({ setToken }: ILoginClientProps) {
           </p>
         </div>
       </div>
-  
+
       {/* Notificaciones */}
       {showNotificationWelcome && (
         <NotificationRegister message={notificationMessageWelcome} />
@@ -176,6 +195,6 @@ function LoginPage({ setToken }: ILoginClientProps) {
       )}
     </section>
   );
-}  
+}
 
 export default LoginPage;

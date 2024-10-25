@@ -1,34 +1,34 @@
 "use client";
-import UploadProductComponent from '@/components/Forms/FormsAdmin/UploadProductComponent'
-import React, { useContext } from 'react';
-import { UserContext } from '@/context/userContext';
-import { useEffect,useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { NotificationRegister } from '@/components/Notifications/NotificationRegister';
-
+import UploadProductComponent from "@/components/Forms/FormsAdmin/UploadProductComponent";
+import React, { useContext } from "react";
+import { UserContext } from "@/context/userContext";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { NotificationRegister } from "@/components/Notifications/NotificationRegister";
 
 export default function UploadProducts() {
-
-    const { isAdmin } = useContext(UserContext);
-  const router = useRouter()
+  const { isAdmin } = useContext(UserContext);
+  const router = useRouter();
 
   const [showNotification, setShowNotification] = useState(false);
-  const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationMessage, setNotificationMessage] = useState("");
   const [loading, setLoading] = useState(true);
 
   //Ruta privada
   useEffect(() => {
     if (!isAdmin) {
-      setNotificationMessage('Debes ser administrador para poder cargar productos');
+      setNotificationMessage(
+        "Debes ser administrador para poder cargar productos",
+      );
       setShowNotification(true);
-      setLoading(false)
+      setLoading(false);
 
       setTimeout(() => {
         setShowNotification(false);
         router.push("/home");
-                }, 2000);
-     } else {
-      setLoading(false); 
+      }, 2000);
+    } else {
+      setLoading(false);
     }
   }, [isAdmin, router]);
 
@@ -39,10 +39,12 @@ export default function UploadProducts() {
       </div>
     );
 
-    return (
-      <>
-       {isAdmin && <UploadProductComponent /> }
-       {showNotification && <NotificationRegister message={notificationMessage} />}
-             </>
-    );
-  }
+  return (
+    <>
+      {isAdmin && <UploadProductComponent />}
+      {showNotification && (
+        <NotificationRegister message={notificationMessage} />
+      )}
+    </>
+  );
+}
