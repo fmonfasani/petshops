@@ -88,9 +88,9 @@ export default function Navbar() {
             ) : (
               <button
                 onClick={handleLoginClick}
-                className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-800"
               >
-                Iniciar Sesión / Registrarse
+                Inicio
               </button>
             )}
           </div>

@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 import {
   ILoginResponse,
   ILoginUser,
@@ -163,7 +163,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
         isAdmin,
         setIsAdmin,
         signIn,
-        signUp, // Aquí estamos pasando la función `signUp` correctamente
+        signUp,
         signUpRegister,
         logOut,
         isModalOpen,
