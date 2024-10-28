@@ -1,5 +1,6 @@
 "use client";
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
+
 import {
   ILoginResponse,
   ILoginUser,
@@ -43,6 +44,18 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   // Funciones para abrir y cerrar el modal
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedAuthData = localStorage.getItem("authData");
+      if (storedAuthData) {
+        const parsedData = JSON.parse(storedAuthData);
+        setUser(parsedData.user);
+        setToken(parsedData.token);
+        setIsLogged(true);
+      }
+    }
+  }, []);
 
   // Función para iniciar sesión
   const signIn = async (credentials: ILoginUser): Promise<boolean> => {

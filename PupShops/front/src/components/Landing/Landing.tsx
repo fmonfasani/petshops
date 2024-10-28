@@ -1,9 +1,25 @@
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
+import portadaImage from "/public/portada.png";
 
 export default function Landing() {
+  // La función Landing debe envolver todo el contenido y el return
   return (
-    <section className="relative bg-[url(/portada.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)] bg-cover bg-center bg-no-repeat">
+    <section className="relative h-screen">
+      <div className="absolute inset-0">
+        <Image
+          src={portadaImage}
+          alt="Portada"
+          layout="fill"
+          objectFit="cover"
+          placeholder="blur"
+          loading="lazy"
+          priority={false}
+          className="bg-cover bg-center bg-no-repeat"
+        />
+      </div>
+
       <div className="absolute inset-0 bg-pink-100/80 sm:bg-transparent sm:from-pink-100/95 sm:to-pink-100/25 sm:bg-gradient-to-r"></div>
 
       <div className="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8">
@@ -44,6 +60,7 @@ export default function Landing() {
           src="/api/placeholder/300/300"
           alt="Happy dog"
           className="w-64 h-64 object-cover rounded-tl-full"
+          loading="lazy" // Lazy loading para esta imagen también
         />
       </div>
     </section>

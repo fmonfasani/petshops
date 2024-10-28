@@ -29,7 +29,7 @@ export const fetchRegisterUser = async (user: IUserRegister) => {
 
 // Función para iniciar sesión
 export const login = async (
-  credentials: ILoginUser,
+  credentials: ILoginUser
 ): Promise<ILoginResponse> => {
   try {
     const response = await fetch(`${API_URL}/auth/signin`, {
@@ -63,9 +63,9 @@ export const login = async (
 //Crear turno
 export const fetchAppointment = async (
   appointment: IAppointment,
-  token: string,
+  token: string
 ) => {
-  const response = await fetch(`http://localhost:3001/appointments`, {
+  const response = await fetch(`${API_URL}/appointments`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -101,7 +101,7 @@ export const fetchUserAppointments = async (token: string) => {
 // Cancelar turno
 export const cancelAppointment = async (
   appointmentId: string,
-  token: string,
+  token: string
 ) => {
   try {
     const response = await fetch(
@@ -115,13 +115,13 @@ export const cancelAppointment = async (
         body: JSON.stringify({
           status: "canceled",
         }),
-      },
+      }
     );
 
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(
-        errorData.message || "Error desconocido al cancelar el turno",
+        errorData.message || "Error desconocido al cancelar el turno"
       );
     }
     return await response.json();

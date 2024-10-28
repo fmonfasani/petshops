@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -20,13 +19,42 @@ export default function Navbar() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const handleLoginClick = () => {
-    openModal(); // Abre el modal
+    console.log("Abriendo modal de inicio de sesión");
+    openModal();
   };
 
   const handleLogoutClick = () => {
+    console.log("Cerrando sesión");
     logOut();
-    router.push("/home"); // Redirecciona al home después del logout
+    closeModal();
+    router.push("/home");
   };
+
+  const modalContent = isLogged ? (
+    <div className="p-6 text-center">
+      <h2 className="text-xl font-semibold mb-4">¿Deseas cerrar sesión?</h2>
+      <div className="flex justify-center gap-4">
+        <button
+          onClick={handleLogoutClick}
+          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors"
+        >
+          Confirmar
+        </button>
+        <button
+          onClick={closeModal}
+          className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 transition-colors"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  ) : (
+    <div className="p-6">
+      {/* Aquí puedes agregar el contenido del modal para usuarios no logueados */}
+      <h2 className="text-xl font-semibold mb-4">Inicia sesión</h2>
+      {/* Contenido adicional para login */}
+    </div>
+  );
 
   return (
     <header className="bg-gray-100 shadow-md mt-6 fixed top-0 left-0 w-full z-50">
@@ -80,7 +108,7 @@ export default function Navbar() {
           <div className="flex items-center space-x-4">
             {isLogged ? (
               <button
-                onClick={handleLogoutClick}
+                onClick={openModal}
                 className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
               >
                 Cerrar sesión
@@ -104,8 +132,10 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Modal Component */}
-      <Modal isOpen={isModalOpen} onClose={closeModal} />
+      {/* Modal Component con contenido condicional */}
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        {modalContent}
+      </Modal>
     </header>
   );
 }

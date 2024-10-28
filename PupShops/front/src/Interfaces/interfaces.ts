@@ -32,22 +32,20 @@ export interface IUserResponse {
 
 export interface IUserContextType {
   user: IUserResponse | null;
-  setUser: React.Dispatch<React.SetStateAction<IUserResponse | null>>;
+  setUser: (user: IUserResponse | null) => void;
   isLogged: boolean;
+  setIsLogged: (isLogged: boolean) => void;
   isAdmin: boolean;
   setIsAdmin: (isAdmin: boolean) => void;
-  setIsLogged: (isLogged: boolean) => void;
   signIn: (credentials: ILoginUser) => Promise<boolean>;
   signUp: (user: IUserRegister) => Promise<boolean>;
-  signUpRegister: (user: IUserRegister) => Promise<boolean>;
+  signUpRegister: (userAdmin: IUserRegister) => Promise<boolean>;
   logOut: () => void;
   token: string | null;
-  setToken: React.Dispatch<React.SetStateAction<string | null>>;
-
-  // Propiedades del modal
-  isModalOpen: boolean; // Estado para saber si el modal está abierto
-  openModal: () => void; // Función para abrir el modal
-  closeModal: () => void; // Función para cerrar el modal
+  setToken: (token: string | null) => void;
+  isModalOpen: boolean;
+  openModal: () => void;
+  closeModal: () => void;
 }
 
 export interface ILoginUser {

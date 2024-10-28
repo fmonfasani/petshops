@@ -40,7 +40,7 @@ export default function Banner() {
 
       <div className="absolute bottom-0 right-0 hidden lg:block">
         <img
-          src="/api/placeholder/300/300"
+          src="/public/pups.png"
           alt="Happy dog"
           className="w-64 h-64 object-cover rounded-tl-full"
         />
